@@ -486,10 +486,8 @@ DynamicList.prototype.initialize = function() {
         return item.id;
       });
 
-      return _this.checkIsToOpen();
-    })
-    .then(function() {
       // Render Loop HTML
+      _this.checkIsToOpen();
       _this.modifiedListItems = _this.addSummaryData(_this.listItems);
       _this.renderLoopHTML().then(function() {
         // Update selected highlight size in Edit
@@ -507,7 +505,7 @@ DynamicList.prototype.checkIsToOpen = function() {
   var entry;
 
   if (!_this.queryOpen) {
-    return Promise.resolve();
+    return;
   }
 
   if (_.hasIn(_this.pvOpenQuery, 'id')) {
@@ -521,18 +519,13 @@ DynamicList.prototype.checkIsToOpen = function() {
   if (!entry) {
     Fliplet.UI.Toast('Entry not found');
 
-    return Promise.resolve();
+    return;
   }
 
   var modifiedData = _this.addSummaryData([entry]);
 
-  return _this.showDetails(entry.id, modifiedData).then(function() {
+  _this.showDetails(entry.id, modifiedData).then(function() {
     _this.openedEntryOnQuery = true;
-
-    // Wait for overlay transition to complete
-    return new Promise(function(resolve) {
-      setTimeout(resolve, 250);
-    });
   });
 };
 

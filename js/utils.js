@@ -828,8 +828,7 @@ Fliplet.Registry.set('dynamicListUtils', (function() {
   }
 
   function removeSymbols(str) {
-    // Remove commonly used symbols in text that should be ignored for string matching
-    return ('' + str).replace(/[&\/\\#+()$~%.`'‘’"“”:*?<>{}]+/g, '');
+    return ('' + str).replace(/[&\/\\#,+()$~%.`'‘’"“”:*?<>{}]+/g, '');
   }
 
   function recordContains(record, value) {
@@ -2540,11 +2539,11 @@ Fliplet.Registry.set('dynamicListUtils', (function() {
   function resetSortIcons(options) {
     options.$sortList.each(function() {
       var $listitem = $(this);
-      var listSortOrder = $listitem.attr('data-sort-order');
+      var listSortOrder = $listitem.data('sortOrder');
       var $listIcon = $listitem.find('i');
 
       $listIcon.removeClass('fa-sort-' + listSortOrder).addClass('fa-sort');
-      $listitem.attr('data-sort-order', 'none');
+      $listitem.data('sortOrder', 'none');
     });
   }
 

@@ -2706,10 +2706,13 @@ var DynamicLists = (function() {
 
         editor.setValue(originalTemplate());
 
-        Fliplet.Modal.alert({
-          title: 'Reset complete',
-          message: _.capitalize(name) + ' has been reset to default.'
-        });
+        $('[data-reset-template]').addClass('hidden');
+        $('[data-reset-template-success]').removeClass('hidden');
+
+        setTimeout(function() {
+          $('[data-reset-template]').removeClass('hidden');
+          $('[data-reset-template-success]').addClass('hidden');
+        }, 2000);
       });
     },
     resetToDefaults: function(id) {
